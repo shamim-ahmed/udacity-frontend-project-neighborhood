@@ -8,7 +8,7 @@ var appConfig = {
   locations: [
     new Location('Government House', new google.maps.LatLng(-33.859621,151.214850)),
     new Location('Pancakes on The Rocks', new google.maps.LatLng(-33.857165,151.208761)),
-    new Location('Mrs Macquarie\'s Chair', new google.maps.LatLng(-33.860057,151.212271)),
+    new Location('Mrs Macquarie\'s Chair', new google.maps.LatLng(-33.860096,151.222564)),
     new Location('The Spice Room', new google.maps.LatLng(-33.861767,151.212383)),
     new Location('Frankie\'s Pizza', new google.maps.LatLng(-33.865958,151.209511))
   ]
@@ -25,9 +25,9 @@ $(document).ready(function(){
     }
   });
 
-  google.maps.event.addDomListener(window, 'load', initialize);
+  google.maps.event.addDomListener(window, 'load', initializeMap);
 
-  function initialize() {
+  function initializeMap() {
     var mapOptions = {
       center: appConfig.center.latlng,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
