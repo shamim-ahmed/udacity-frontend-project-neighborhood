@@ -1,33 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>The Neighborhood</title>
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="styles/bootstrap.min.css"/>
-  <link rel="stylesheet" href="styles/offcanvas.css"/>
-  <link rel="stylesheet" href="styles/main.css"/>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>Google maps with Sidebar</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+	<link href="css/styles.css" rel="stylesheet"/>
 </head>
 <body>
-  <div class="navbar navbar-fixed-top navbar-inverse">&nbsp;</div>
-  <div class="container">
-    <div class="row row-offcanvas row-offcanvas-left">
-      <!-- the container div for the search box -->
-      <div class="col-xs-6 col-sm-3">
-      </div>
+	<!-- begin template -->
+	<div class="navbar">
+			<a href="#" id="sidebar-control" data-state="show">
+				<img src="images/burger.png" alt="sidebar show/hide"/>
+			</a>
+			<div class="navbar-label">Google Maps with Bootstrap</div>
+	</div>
 
-      <!-- the container div for the map-->
-      <div class="col-xs-12 col-sm-9">
-        <div id="map-container">&nbsp;</div>
-      </div>
-    </div>
-  </div>
+	<div id="map-canvas"></div>
+	<div id="sidebar">
+		<h2>Origin of Lorem Ipsum</h2>
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/knockout-3.2.0.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/offcanvas.js"></script>
-  <script src="js/app.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADzR1HKF8UpCsP7y3eNf6gwRDUjFWtLhw&v=3&callback=initMap"></script>
+		<div class="info">
+			Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC,
+			making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the
+			more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature,
+			discovered the undoubtable source.
+		</div>
+	</div>
+
+	<!-- script references -->
+	<script src="js/jquery.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADzR1HKF8UpCsP7y3eNf6gwRDUjFWtLhw&v=3"></script>
+	<script src="js/script.js"></script>
 </body>
 </html>
