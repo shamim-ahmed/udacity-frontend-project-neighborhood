@@ -45,10 +45,6 @@ body{
   background: #fff;
 }
 
-.info {
-  font-size: 0.9em;
-}
-
 #map-canvas {
   width:75%;
   height:calc(100% - 0);
@@ -63,7 +59,7 @@ body{
   .navbar .navbar-label {
     margin-left: 10px;
   }
-  
+
   #map-canvas {
     width: 100%;
   }
