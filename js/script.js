@@ -1,18 +1,22 @@
 var Location = function(name, latlng) {
   this.name = name;
   this.latlng = latlng;
+  this.isIncluded = ko.observable(true);
 };
 
 var appConfig = {
-  center: new Location('Sydney Opera House', new google.maps.LatLng(-33.856783, 151.215290)),
   locations: [
+    new Location('Sydney Opera House', new google.maps.LatLng(-33.856783, 151.215290)),
     new Location('Government House', new google.maps.LatLng(-33.859621,151.214850)),
     new Location('Pancakes on The Rocks', new google.maps.LatLng(-33.857165,151.208761)),
     new Location('Mrs Macquarie\'s Chair', new google.maps.LatLng(-33.860096,151.222564)),
     new Location('The Spice Room', new google.maps.LatLng(-33.861767,151.212383)),
     new Location('Frankie\'s Pizza', new google.maps.LatLng(-33.865958,151.209511))
-  ]
+  ],
+  center: new google.maps.LatLng(-33.856783, 151.215290)
 };
+
+var map = null;
 
 $(document).ready(function(){
   $('#sidebar-control').click(function() {
@@ -29,20 +33,13 @@ $(document).ready(function(){
 
   function initializeMap() {
     var mapOptions = {
-      center: appConfig.center.latlng,
+      center: appConfig.center,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       zoom: 16,
       disableDefaultUI: true
     };
 
-    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-
-    var marker = new google.maps.Marker({
-      position: appConfig.center.latlng,
-      animation: google.maps.Animation.DROP
-    });
-
-    marker.setMap(map);
+    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
     var i;
     var loc;
