@@ -61,6 +61,8 @@ $(document).ready(function(){
     }
   });
 
+  var map = null;
+
   var locations = [
     new Location('Sydney Opera House', new google.maps.LatLng(-33.856783, 151.215290)),
     new Location('Government House', new google.maps.LatLng(-33.859621, 151.214850)),
@@ -83,41 +85,29 @@ $(document).ready(function(){
       disableDefaultUI: true
     };
 
-    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-    createMarkers(map, locations, markers);
-    renderMarkers(map, locations, markers);
+    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    var i, loc, marker;
+
+    for (i = 0; i < locations.length; i++) {
+      loc = locations[i];
+
+      marker = new google.maps.Marker({
+        position: loc.latlng,
+        animation: google.maps.Animation.DROP
+      });
+      markers.push(marker);
+
+      if (loc.isIncluded()) {
+        marker.setMap(map);
+      }
+    }
 
     // at this point, we have all required data to create a ViewModel
+    createViewModel();
+  }
+
+  function createViewModel() {
     var viewModel = new ViewModel(map, locations, markers);
     ko.applyBindings(viewModel);
   }
 });
-
-function createMarkers(map, locations, markers) {
-  var i, loc, marker;
-
-  for (i = 0; i < locations.length; i++) {
-    loc = locations[i];
-    marker = new google.maps.Marker({
-      position: loc.latlng,
-      animation: google.maps.Animation.DROP
-    });
-
-    markers.push(marker);
-  }
-}
-
-function renderMarkers(map, locations, markers) {
-  var i, loc, marker;
-
-  for (i = 0; i < locations.length; i++) {
-    loc = locations[i];
-    marker = markers[i];
-
-    if (loc.isIncluded()) {
-      marker.setMap(map);
-    } else {
-      marker.setMap(null);
-    }
-  }
-}
