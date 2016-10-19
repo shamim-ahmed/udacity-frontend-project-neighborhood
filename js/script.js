@@ -91,10 +91,7 @@ $(document).ready(function(){
     for (i = 0; i < locations.length; i++) {
       loc = locations[i];
 
-      marker = new google.maps.Marker({
-        position: loc.latlng,
-        animation: google.maps.Animation.DROP
-      });
+      marker = createMarker(loc);
       markers.push(marker);
 
       if (loc.isIncluded()) {
@@ -104,6 +101,22 @@ $(document).ready(function(){
 
     // at this point, we have all required data to create a ViewModel
     createViewModel();
+  }
+
+  function createMarker(loc) {
+    var marker = new google.maps.Marker({
+      position: loc.latlng,
+      animation: google.maps.Animation.DROP
+    });
+
+    var infoWindow = new google.maps.InfoWindow();
+    infoWindow.setContent('<div>' + loc.name + '</div>');
+
+    marker.addListener('click', function() {
+      infoWindow.open(map, marker);
+    });
+
+    return marker;
   }
 
   function createViewModel() {
