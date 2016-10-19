@@ -109,8 +109,20 @@ $(document).ready(function(){
       animation: google.maps.Animation.DROP
     });
 
-    var infoWindow = new google.maps.InfoWindow();
-    infoWindow.setContent('<div>' + loc.name + '</div>');
+    var addr = loc.latlng.lat() + ',' + loc.latlng.lng();
+    var imageUrl = 'http://maps.googleapis.com/maps/api/streetview';
+    imageUrl += '?' + $.param({'size': '200x120'});
+    imageUrl += '&' + $.param({'location': addr});
+
+    var infoContent = "<div>";
+    infoContent += '<h4>' + loc.name + '</h4>';
+    infoContent += '<img src="' + imageUrl + '" alt="' + loc.name + '"/>'
+    infoContent += '</div>'
+
+    var infoWindow = new google.maps.InfoWindow({
+      content: infoContent,
+      maxWidth: 220
+    });
 
     marker.addListener('click', function() {
       infoWindow.open(map, marker);
