@@ -13,8 +13,41 @@ var ViewModel = function(map, locations, markers) {
 
   self.searchInput = ko.observable();
   self.searchInput.subscribe(function(val) {
-    // TODO implement it
+    filterLocations(val);
   });
+
+  function filterLocations(val) {
+    val = val.toLowerCase();
+
+    self.locations.forEach(function(loc) {
+      var name = loc.name.toLowerCase();
+
+      if (name.indexOf(val) != -1) {
+        loc.isIncluded(true);
+      } else {
+        loc.isIncluded(false);
+      }
+
+      updateMarker(loc);
+    });
+  }
+
+  function updateMarker(loc) {
+    var i;
+
+    for (i = 0; i < self.locations.length; i++) {
+      if (loc == self.locations[i]) {
+        break;
+      }
+    }
+
+    if (i >= self.markers.length) {
+      return;
+    }
+
+    var val = loc.isIncluded() ? self.map : null;
+    self.markers[i].setMap(val);
+  }
 };
 
 $(document).ready(function(){
