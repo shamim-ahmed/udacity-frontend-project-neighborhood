@@ -4,10 +4,13 @@ var Location = function(name, latlng) {
   this.isIncluded = ko.observable(true);
 };
 
-var map = null;
-var markerArray = [];
-var locations;
-var center;
+var ViewModel = function(map, locations, markers) {
+  var self = this;
+
+  self.map = map;
+  self.locations = locations;
+  self.markers = markers;
+};
 
 $(document).ready(function(){
   $('#sidebar-control').click(function() {
@@ -20,7 +23,7 @@ $(document).ready(function(){
     }
   });
 
-  locations = [
+  var locations = [
     new Location('Sydney Opera House', new google.maps.LatLng(-33.856783, 151.215290)),
     new Location('Government House', new google.maps.LatLng(-33.859621, 151.214850)),
     new Location('Pancakes on The Rocks', new google.maps.LatLng(-33.857165, 151.208761)),
@@ -29,26 +32,25 @@ $(document).ready(function(){
     new Location('Frankie\'s Pizza', new google.maps.LatLng(-33.865958, 151.209511))
   ];
 
-  center = locations[0].latlng;
+  var center = locations[0].latlng;
+  var markers = [];
   google.maps.event.addDomListener(window, 'load', initializeMap);
 
-  // at this point, we have map and markers initialized.
+  function initializeMap() {
+    var mapOptions = {
+      center: center,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      zoom: 16,
+      disableDefaultUI: true
+    };
+
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    createMarkers(map, locations, markers);
+    renderMarkers(map, locations, markers);
+  }
 });
 
-function initializeMap() {
-  var mapOptions = {
-    center: center,
-    mapTypeId: google.maps.MapTypeId.ROADMAP,
-    zoom: 16,
-    disableDefaultUI: true
-  };
-
-  map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-  createMarkers();
-  renderMarkers();
-}
-
-function createMarkers() {
+function createMarkers(map, locations, markers) {
   var i, loc, marker;
 
   for (i = 0; i < locations.length; i++) {
@@ -58,16 +60,16 @@ function createMarkers() {
       animation: google.maps.Animation.DROP
     });
 
-    markerArray.push(marker);
+    markers.push(marker);
   }
 }
 
-function renderMarkers() {
+function renderMarkers(map, locations, markers) {
   var i, loc, marker;
 
   for (i = 0; i < locations.length; i++) {
     loc = locations[i];
-    marker = markerArray[i];
+    marker = markers[i];
 
     if (loc.isIncluded()) {
       marker.setMap(map);
