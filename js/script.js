@@ -7,11 +7,11 @@ var Location = function(name, latlng) {
 var appConfig = {
   locations: [
     new Location('Sydney Opera House', new google.maps.LatLng(-33.856783, 151.215290)),
-    new Location('Government House', new google.maps.LatLng(-33.859621,151.214850)),
-    new Location('Pancakes on The Rocks', new google.maps.LatLng(-33.857165,151.208761)),
-    new Location('Mrs Macquarie\'s Chair', new google.maps.LatLng(-33.860096,151.222564)),
-    new Location('The Spice Room', new google.maps.LatLng(-33.861767,151.212383)),
-    new Location('Frankie\'s Pizza', new google.maps.LatLng(-33.865958,151.209511))
+    new Location('Government House', new google.maps.LatLng(-33.859621, 151.214850)),
+    new Location('Pancakes on The Rocks', new google.maps.LatLng(-33.857165, 151.208761)),
+    new Location('Mrs Macquarie\'s Chair', new google.maps.LatLng(-33.860096, 151.222564)),
+    new Location('The Spice Room', new google.maps.LatLng(-33.861767, 151.212383)),
+    new Location('Frankie\'s Pizza', new google.maps.LatLng(-33.865958, 151.209511))
   ],
   center: new google.maps.LatLng(-33.856783, 151.215290)
 };
