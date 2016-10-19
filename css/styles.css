@@ -52,6 +52,10 @@ body{
   margin-top: 15px;
 }
 
+#sidebar .search-item-list {
+  list-style-type: none;
+}
+
 #map-canvas {
   width:75%;
   height:calc(100% - 0);

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -17,7 +18,15 @@
 
 	<div id="map-canvas"></div>
 	<div id="sidebar">
-    <input type="search" name="q" class="search-box"/>
+		<form action="#">
+			<input type="search" name="q" class="search-box" data-bind="value: searchInput, valueUpdate: 'afterKeyDown'"/>
+		</form>
+
+		<ul data-bind="foreach: locations" class="search-item-list">
+			<li data-bind="visible: isIncluded">
+				<span data-bind="text: name"></span>
+			</li>
+		</ul>
 	</div>
 
 	<!-- script references -->

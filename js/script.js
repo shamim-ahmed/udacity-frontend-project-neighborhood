@@ -10,6 +10,11 @@ var ViewModel = function(map, locations, markers) {
   self.map = map;
   self.locations = locations;
   self.markers = markers;
+
+  self.searchInput = ko.observable();
+  self.searchInput.subscribe(function(val) {
+    // TODO implement it
+  });
 };
 
 $(document).ready(function(){
@@ -34,9 +39,10 @@ $(document).ready(function(){
 
   var center = locations[0].latlng;
   var markers = [];
-  google.maps.event.addDomListener(window, 'load', initializeMap);
+  google.maps.event.addDomListener(window, 'load', initialize);
 
-  function initializeMap() {
+  // this function is used to initialize the map with the right center and markers
+  function initialize() {
     var mapOptions = {
       center: center,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -47,6 +53,10 @@ $(document).ready(function(){
     var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
     createMarkers(map, locations, markers);
     renderMarkers(map, locations, markers);
+
+    // at this point, we have all required data to create a ViewModel
+    var viewModel = new ViewModel(map, locations, markers);
+    ko.applyBindings(viewModel);
   }
 });
 
