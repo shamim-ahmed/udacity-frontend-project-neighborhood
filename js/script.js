@@ -30,26 +30,26 @@ $(document).ready(function(){
   });
 
   google.maps.event.addDomListener(window, 'load', initializeMap);
-
-  function initializeMap() {
-    var mapOptions = {
-      center: appConfig.center,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      zoom: 16,
-      disableDefaultUI: true
-    };
-
-    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-
-    var i;
-    var loc;
-    for (i = 0; i < appConfig.locations.length; i++) {
-      loc = appConfig.locations[i];
-      marker = new google.maps.Marker({
-        position: loc.latlng,
-        animation: google.maps.Animation.DROP
-      });
-      marker.setMap(map);
-    }
-  }
 });
+
+function initializeMap() {
+  var mapOptions = {
+    center: appConfig.center,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    zoom: 16,
+    disableDefaultUI: true
+  };
+
+  map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+  var i, loc, marker;
+
+  for (i = 0; i < appConfig.locations.length; i++) {
+    loc = appConfig.locations[i];
+    marker = new google.maps.Marker({
+      position: loc.latlng,
+      animation: google.maps.Animation.DROP
+    });
+    marker.setMap(map);
+  }
+}
