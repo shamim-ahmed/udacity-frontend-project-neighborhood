@@ -127,12 +127,30 @@ $(document).ready(function(){
       infoWindow.open(map, marker);
     });
 
-    var ajaxApiResponseHandler = function(jsonData) {
-      $(infoContent).append('<div>' + 'The data has arrived !!' + '</div>');
+    var venueSearchResponseHandler = function(data) {
+      var venue = data.response.venues[0];
+      var venueId = venue.id;
+      // TODO extract other data
+
+      var venueTipsUrl = 'https://api.foursquare.com/v2/venues/' + venueId + '/tips'
+      var params = {
+        'sort': 'recent',
+        'client_id': '2XWQOVE4P4V5ZULBKS0LJ5LH3XSYVAFSPEU250QAFVV1RBSA',
+        'client_secret': '4DSQNJCSZ3Y05EV5Q0TSDOFI2TWIWT0UMOQBDZUAQLZWHXZX',
+        'v': '20161020',
+        'm': 'foursquare',
+        'limit': 3
+      };
+
+      $.getJSON(venueTipsUrl, params, tipSearchResponseHandler).fail(genericErrorHandler);
     };
 
-    var ajaxApiErrorHandler = function() {
-      console.log('An error occurred !');
+    var tipSearchResponseHandler = function(data) {
+      $(infoContent).append('<div>' + 'comments are received !!' + '</div>');
+    };
+
+    var genericErrorHandler = function(ex) {
+      console.log('An error occurred: ' + ex);
     };
 
     var fourSquareUrl = 'https://api.foursquare.com/v2/venues/search';
@@ -147,7 +165,7 @@ $(document).ready(function(){
       'limit': 1
     };
 
-    $.getJSON(fourSquareUrl, params, ajaxApiResponseHandler).fail(ajaxApiErrorHandler);
+    $.getJSON(fourSquareUrl, params, venueSearchResponseHandler).fail(genericErrorHandler);
 
     return marker;
   }
