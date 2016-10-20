@@ -111,7 +111,7 @@ $(document).ready(function(){
 
     var addr = loc.latlng.lat() + ',' + loc.latlng.lng();
     var imageUrl = 'http://maps.googleapis.com/maps/api/streetview';
-    imageUrl += '?' + $.param({'size': '200x120'});
+    imageUrl += '?' + $.param({'size': '300x180'});
     imageUrl += '&' + $.param({'location': addr});
 
     var infoContent = document.createElement('div');
@@ -119,7 +119,7 @@ $(document).ready(function(){
 
     var infoWindow = new google.maps.InfoWindow({
       content: infoContent,
-      maxWidth: 220
+      maxWidth: 300
     });
 
     marker.addListener('click', function() {
@@ -145,6 +145,7 @@ $(document).ready(function(){
           }
         }
       }
+
       var category = venue.categories[0].name;
 
       $(infoContent).append('<div><span>Name: </span><span>' + venueName + '</span></div>');
@@ -153,19 +154,20 @@ $(document).ready(function(){
 
       var venueTipsUrl = 'https://api.foursquare.com/v2/venues/' + venueId + '/tips'
       var params = {
-        'sort': 'recent',
         'client_id': '2XWQOVE4P4V5ZULBKS0LJ5LH3XSYVAFSPEU250QAFVV1RBSA',
         'client_secret': '4DSQNJCSZ3Y05EV5Q0TSDOFI2TWIWT0UMOQBDZUAQLZWHXZX',
         'v': '20161020',
         'm': 'foursquare',
-        'limit': 3
+        'sort': 'popular',
+        'limit': 1
       };
 
       $.getJSON(venueTipsUrl, params, tipSearchResponseHandler).fail(genericErrorHandler);
     };
 
     var tipSearchResponseHandler = function(data) {
-      $(infoContent).append('<div>' + 'comments are received !!' + '</div>');
+      var tip = data.response.tips.items[0];
+      $(infoContent).append('<div><span>Review: <span><span>' + tip.text + '</span></div>');
     };
 
     var genericErrorHandler = function(ex) {
