@@ -62,6 +62,7 @@ $(document).ready(function(){
   });
 
   var map = null;
+  var currentInfoWindow = null;
 
   var locations = [
     new Location('Sydney Opera House', new google.maps.LatLng(-33.856783, 151.215290)),
@@ -123,7 +124,12 @@ $(document).ready(function(){
     });
 
     marker.addListener('click', function() {
+      if (currentInfoWindow != null) {
+        currentInfoWindow.close();
+      }
+
       infoWindow.open(map, marker);
+      currentInfoWindow = infoWindow;
     });
 
     var venueSearchResponseHandler = function(data) {
