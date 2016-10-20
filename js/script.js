@@ -114,10 +114,9 @@ $(document).ready(function(){
     imageUrl += '?' + $.param({'size': '200x120'});
     imageUrl += '&' + $.param({'location': addr});
 
-    var infoContent = "<div>";
-    infoContent += '<h4>' + loc.name + '</h4>';
-    infoContent += '<img src="' + imageUrl + '" alt="' + loc.name + '"/>'
-    infoContent += '</div>'
+    var infoContent = document.createElement('div');
+    $(infoContent).append('<h4>' + loc.name + '</h4>');
+    $(infoContent).append('<img src="' + imageUrl + '" alt="' + loc.name + '"/>');
 
     var infoWindow = new google.maps.InfoWindow({
       content: infoContent,
