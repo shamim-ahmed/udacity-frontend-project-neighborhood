@@ -127,6 +127,28 @@ $(document).ready(function(){
       infoWindow.open(map, marker);
     });
 
+    var ajaxApiResponseHandler = function(jsonData) {
+      $(infoContent).append('<div>' + 'The data has arrived !!' + '</div>');
+    };
+
+    var ajaxApiErrorHandler = function() {
+      console.log('An error occurred !');
+    };
+
+    var fourSquareUrl = 'https://api.foursquare.com/v2/venues/search';
+    var latlngStr = loc.latlng.lat() + ',' + loc.latlng.lng();
+    var params = {
+      'll': latlngStr,
+      'client_id': '2XWQOVE4P4V5ZULBKS0LJ5LH3XSYVAFSPEU250QAFVV1RBSA',
+      'client_secret': '4DSQNJCSZ3Y05EV5Q0TSDOFI2TWIWT0UMOQBDZUAQLZWHXZX',
+      'v': '20161020',
+      'm': 'foursquare',
+      'query': loc.name,
+      'limit': 1
+    };
+
+    $.getJSON(fourSquareUrl, params, ajaxApiResponseHandler).fail(ajaxApiErrorHandler);
+
     return marker;
   }
 
