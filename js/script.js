@@ -115,7 +115,6 @@ $(document).ready(function(){
     imageUrl += '&' + $.param({'location': addr});
 
     var infoContent = document.createElement('div');
-    $(infoContent).append('<h4>' + loc.name + '</h4>');
     $(infoContent).append('<img src="' + imageUrl + '" alt="' + loc.name + '"/>');
 
     var infoWindow = new google.maps.InfoWindow({
@@ -130,7 +129,27 @@ $(document).ready(function(){
     var venueSearchResponseHandler = function(data) {
       var venue = data.response.venues[0];
       var venueId = venue.id;
-      // TODO extract other data
+      var venueName = venue.name;
+      var venueLocation = venue.location;
+      var fullAddress = '';
+
+      if (venueLocation.formattedAddress) {
+        var i;
+        var n = venueLocation.formattedAddress.length;
+
+        for (i = 0; i < n; i++) {
+          fullAddress += venueLocation.formattedAddress[i];
+
+          if (i < n - 1) {
+            fullAddress += ', ';
+          }
+        }
+      }
+      var category = venue.categories[0].name;
+
+      $(infoContent).append('<div><span>Name: </span><span>' + venueName + '</span></div>');
+      $(infoContent).append('<div><span>Address: </span><span>' + fullAddress + '</span></div>');
+      $(infoContent).append('<div><span>Category: </span><span>' + category + '</span></div>');
 
       var venueTipsUrl = 'https://api.foursquare.com/v2/venues/' + venueId + '/tips'
       var params = {
