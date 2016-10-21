@@ -16,6 +16,10 @@ var ViewModel = function(map, locations, markers) {
     filterLocations(val);
   });
 
+  self.locationSelected = function(selectedLoc) {
+    console.log(selectedLoc.name);
+  };
+
   function filterLocations(val) {
     val = val.toLowerCase();
 

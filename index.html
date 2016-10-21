@@ -23,7 +23,7 @@
 		</form>
 
 		<ul data-bind="foreach: locations" class="search-item-list">
-			<li data-bind="visible: isIncluded">
+			<li data-bind="visible: isIncluded, event: {click: $parent.locationSelected}">
 				<span data-bind="text: name"></span>
 			</li>
 		</ul>
