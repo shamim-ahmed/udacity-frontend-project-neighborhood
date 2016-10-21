@@ -17,7 +17,21 @@ var ViewModel = function(map, locations, markers) {
   });
 
   self.locationSelected = function(selectedLoc) {
-    console.log(selectedLoc.name);
+    var i;
+    var n = self.locations.length;
+
+    for (i = 0; i < n; i++) {
+      if (self.locations[i] == selectedLoc) {
+        break;
+      }
+    }
+
+    if (i >= n) {
+      return;
+    }
+
+    var marker = markers[i];
+    google.maps.event.trigger(marker, 'click');
   };
 
   function filterLocations(val) {
