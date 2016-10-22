@@ -50,10 +50,19 @@ body{
   margin-left: auto;
   margin-right: auto;
   margin-top: 15px;
+  width: 75%;
 }
 
 #sidebar .search-item-list {
   list-style-type: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#sidebar .search-item-list .search-item {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 5%;
 }
 
 #map-canvas {
@@ -82,6 +91,15 @@ body{
 @media screen and (max-width: 768px) {
   .navbar .navbar-label {
     margin-left: 10px;
+  }
+
+  #sidebar .search-box {
+    width: 90%;
+  }
+
+  #sidebar .search-item-list {
+    padding-left: 0;
+    font-size: 0.75em;
   }
 
   #map-canvas {

@@ -139,13 +139,13 @@ $(document).ready(function(){
 
     var addr = loc.latlng.lat() + ',' + loc.latlng.lng();
     var imageUrl = 'http://maps.googleapis.com/maps/api/streetview';
-    imageUrl += '?' + $.param({'size': '300x180'});
+    imageUrl += '?' + $.param({'size': '250x150'});
     imageUrl += '&' + $.param({'location': addr});
 
     var infoContent = null;
 
     var infoWindow = new google.maps.InfoWindow({
-      maxWidth: 300
+      maxWidth: 250
     });
 
     infoWindow.setZIndex(10);
