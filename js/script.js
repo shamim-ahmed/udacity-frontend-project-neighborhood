@@ -45,6 +45,7 @@ var ViewModel = function(map, locations, markers, infoWindows) {
 
     // check if location is excluded for current input and close the corresponding infowindow
     if (val === null) {
+      marker.setIcon('images/red-dot.png');
       var iw = infoWindows[loc.uniqueId];
       iw.close();
     }
@@ -65,6 +66,7 @@ $(document).ready(function(){
   });
 
   var map = null;
+  var currentMarker = null;
   var currentInfoWindow = null;
 
   var locationNames = [
@@ -148,6 +150,13 @@ $(document).ready(function(){
       if (currentInfoWindow !== null) {
         currentInfoWindow.close();
       }
+
+      if (currentMarker !== null) {
+        currentMarker.setIcon('images/red-dot.png');
+      }
+
+      marker.setIcon('images/purple-dot.png');
+      currentMarker = marker;
 
       // check if the infowindow content has already been fetched from external sources
       if (infoContent !== null) {
