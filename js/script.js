@@ -5,12 +5,13 @@ var Location = function(uniqueId, name, latlng) {
   this.isIncluded = ko.observable(true);
 };
 
-var ViewModel = function(map, locations, markers) {
+var ViewModel = function(map, locations, markers, infoWindows) {
   var self = this;
 
   self.map = map;
   self.locations = locations;
   self.markers = markers;
+  self.infoWindows = infoWindows;
 
   self.searchInput = ko.observable();
   self.searchInput.subscribe(function(val) {
@@ -39,8 +40,15 @@ var ViewModel = function(map, locations, markers) {
   }
 
   function updateMarker(loc) {
-    var val = loc.isIncluded() ? self.map : null;
     var marker = self.markers[loc.uniqueId];
+    var val = loc.isIncluded() ? self.map : null;
+
+    // check if location is excluded for current input and close the corresponding infowindow
+    if (val === null) {
+      var iw = infoWindows[loc.uniqueId];
+      iw.close();
+    }
+
     marker.setMap(val);
   }
 };
@@ -73,6 +81,7 @@ $(document).ready(function(){
 
   var center = locations[0].latlng;
   var markers = {};
+  var infoWindows = {};
   google.maps.event.addDomListener(window, 'load', initialize);
 
   // this function is used to initialize the map with the right center and markers
@@ -120,6 +129,7 @@ $(document).ready(function(){
     });
 
     infoWindow.setZIndex(10);
+    infoWindows[loc.uniqueId] = infoWindow;
 
     marker.addListener('click', function() {
       if (currentInfoWindow !== null) {
@@ -212,7 +222,7 @@ $(document).ready(function(){
   }
 
   function createViewModel() {
-    var viewModel = new ViewModel(map, locations, markers);
+    var viewModel = new ViewModel(map, locations, markers, infoWindows);
     ko.applyBindings(viewModel);
   }
 });
