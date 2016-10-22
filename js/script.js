@@ -1,4 +1,5 @@
-var Location = function(name, latlng) {
+var Location = function(uniqueId, name, latlng) {
+  this.uniqueId = uniqueId;
   this.name = name;
   this.latlng = latlng;
   this.isIncluded = ko.observable(true);
@@ -17,20 +18,7 @@ var ViewModel = function(map, locations, markers) {
   });
 
   self.locationSelected = function(selectedLoc) {
-    var i;
-    var n = self.locations.length;
-
-    for (i = 0; i < n; i++) {
-      if (self.locations[i] == selectedLoc) {
-        break;
-      }
-    }
-
-    if (i >= n) {
-      return;
-    }
-
-    var marker = markers[i];
+    var marker = markers[selectedLoc.uniqueId];
     google.maps.event.trigger(marker, 'click');
   };
 
@@ -51,20 +39,9 @@ var ViewModel = function(map, locations, markers) {
   }
 
   function updateMarker(loc) {
-    var i;
-
-    for (i = 0; i < self.locations.length; i++) {
-      if (loc == self.locations[i]) {
-        break;
-      }
-    }
-
-    if (i >= self.markers.length) {
-      return;
-    }
-
     var val = loc.isIncluded() ? self.map : null;
-    self.markers[i].setMap(val);
+    var marker = self.markers[loc.uniqueId];
+    marker.setMap(val);
   }
 };
 
@@ -82,14 +59,17 @@ $(document).ready(function(){
   var map = null;
   var currentInfoWindow = null;
 
-  var locations = [
-    new Location('Sydney Opera House', new google.maps.LatLng(-33.856783, 151.215290)),
-    new Location('Government House', new google.maps.LatLng(-33.859621, 151.214850)),
-    new Location('Pancakes on The Rocks', new google.maps.LatLng(-33.857165, 151.208761)),
-    new Location('Mrs Macquarie\'s Chair', new google.maps.LatLng(-33.860096, 151.222564)),
-    new Location('The Spice Room', new google.maps.LatLng(-33.861767, 151.212383)),
-    new Location('Frankie\'s Pizza', new google.maps.LatLng(-33.865958, 151.209511))
-  ];
+  var locationNames = ['Sydney Opera House', 'Government House', 'Pancakes on The Rocks', 'Mrs Macquarie\'s Chair', 'The Spice Room', 'Frankie\'s Pizza'];
+  var locationCoords = [new google.maps.LatLng(-33.856783, 151.215290), new google.maps.LatLng(-33.859621, 151.214850), new google.maps.LatLng(-33.857165, 151.208761),
+            new google.maps.LatLng(-33.860096, 151.222564), new google.maps.LatLng(-33.861767, 151.212383), new google.maps.LatLng(-33.865958, 151.209511)];
+
+  var locations = [];
+
+  var i, locId;
+  for (i = 0; i < locationNames.length; i++) {
+    locId = 'location_' + i;
+    locations[i] = new Location(locId, locationNames[i], locationCoords[i]);
+  }
 
   var center = locations[0].latlng;
   var markers = [];
@@ -111,7 +91,7 @@ $(document).ready(function(){
       loc = locations[i];
 
       marker = createMarker(loc);
-      markers.push(marker);
+      markers[loc.uniqueId] = marker;
 
       if (loc.isIncluded()) {
         marker.setMap(map);
