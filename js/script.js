@@ -133,7 +133,8 @@ $(document).ready(function(){
   function createMarker(loc) {
     var marker = new google.maps.Marker({
       position: loc.latlng,
-      animation: google.maps.Animation.DROP
+      animation: google.maps.Animation.DROP,
+      icon: 'images/red-dot.png'
     });
 
     var addr = loc.latlng.lat() + ',' + loc.latlng.lng();
@@ -149,6 +150,10 @@ $(document).ready(function(){
 
     infoWindow.setZIndex(10);
     infoWindows[loc.uniqueId] = infoWindow;
+
+    google.maps.event.addListener(infoWindow, 'closeclick', function() {
+      marker.setIcon('images/red-dot.png');
+    });
 
     marker.addListener('click', function() {
       if (currentInfoWindow !== null) {
