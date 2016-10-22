@@ -65,6 +65,10 @@ body{
   padding-left: 5%;
 }
 
+#sidebar .search-item-list .selectedItem {
+  color: #9370DB;
+}
+
 #map-canvas {
   width:75%;
   height:calc(100% - 0);

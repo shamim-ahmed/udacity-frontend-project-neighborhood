@@ -3,6 +3,7 @@ var Location = function(uniqueId, name, latlng) {
   this.name = name;
   this.latlng = latlng;
   this.isIncluded = ko.observable(true);
+  this.isSelected = ko.observable(false);
 };
 
 var ViewModel = function(map, locations, markers, infoWindows) {
@@ -19,6 +20,14 @@ var ViewModel = function(map, locations, markers, infoWindows) {
   });
 
   self.locationSelected = function(selectedLoc) {
+    self.locations.forEach(function(loc) {
+      if (loc.isSelected()) {
+        loc.isSelected(false);
+      }
+    });
+
+    selectedLoc.isSelected(true);
+
     var marker = markers[selectedLoc.uniqueId];
     google.maps.event.trigger(marker, 'click');
   };
@@ -64,7 +73,7 @@ $(document).ready(function(){
       $(this).data('state', 'show');
     }
   });
-
+  
   var map = null;
   var currentMarker = null;
   var currentInfoWindow = null;
