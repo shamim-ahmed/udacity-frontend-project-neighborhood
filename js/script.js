@@ -119,6 +119,8 @@ $(document).ready(function(){
       maxWidth: 300
     });
 
+    infoWindow.setZIndex(10);
+
     marker.addListener('click', function() {
       if (currentInfoWindow !== null) {
         currentInfoWindow.close();
