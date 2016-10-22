@@ -73,7 +73,7 @@ $(document).ready(function(){
       $(this).data('state', 'show');
     }
   });
-  
+
   var map = null;
   var currentMarker = null;
   var currentInfoWindow = null;
@@ -84,7 +84,7 @@ $(document).ready(function(){
     'Mrs Macquarie\'s Chair',
     'The Spice Room',
     'Frankie\'s Pizza',
-    'Sea Life Sydney Aquarium',
+    'Sea Life Aquarium',
     'St Mary\'s Cathedral',
     'Queen Victoria Building'
   ];
