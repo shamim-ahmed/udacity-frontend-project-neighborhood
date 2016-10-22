@@ -66,6 +66,19 @@ body{
   overflow:hidden;
 }
 
+.info-container h3 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.info-container .info {
+  margin-bottom: 3px;
+}
+
+.info-container .info .key {
+  font-weight: bold;
+}
+
 @media screen and (max-width: 768px) {
   .navbar .navbar-label {
     margin-left: 10px;

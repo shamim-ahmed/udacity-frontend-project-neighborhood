@@ -182,6 +182,7 @@ $(document).ready(function(){
       // we have to fetch location specific info from external sources
       // we start by creating the parent div
       infoContent = document.createElement('div');
+      $(infoContent).addClass('info-container');
       $(infoContent).append('<img src="' + imageUrl + '" alt="' + loc.name + '"/>');
 
       var fourSquareUrl = 'https://api.foursquare.com/v2/venues/search';
@@ -220,10 +221,10 @@ $(document).ready(function(){
       }
 
       var category = venue.categories[0].name;
-      $(infoContent).append('<div>Info from Foursquare</div>');
-      $(infoContent).append('<div><span>Name: </span><span>' + venueName + '</span></div>');
-      $(infoContent).append('<div><span>Address: </span><span>' + fullAddress + '</span></div>');
-      $(infoContent).append('<div><span>Category: </span><span>' + category + '</span></div>');
+      $(infoContent).append('<h3>Info from Foursquare</h3>');
+      $(infoContent).append('<div class="info"><span class="key">Name: </span><span>' + venueName + '</span></div>');
+      $(infoContent).append('<div class="info"><span class="key">Address: </span><span>' + fullAddress + '</span></div>');
+      $(infoContent).append('<div class="info"><span class="key">Category: </span><span>' + category + '</span></div>');
 
       var venueTipsUrl = 'https://api.foursquare.com/v2/venues/' + venueId + '/tips';
       var params = {
@@ -240,7 +241,7 @@ $(document).ready(function(){
 
     var tipSearchResponseHandler = function(data) {
       var tip = data.response.tips.items[0];
-      $(infoContent).append('<div><span>Review: <span><span>' + tip.text + '</span></div>');
+      $(infoContent).append('<div class="info"><span class="key">Review: </span><span>' + tip.text + '</span></div>');
       infoWindow.setContent(infoContent);
     };
 
