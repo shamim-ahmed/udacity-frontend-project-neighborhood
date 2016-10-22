@@ -113,8 +113,7 @@ $(document).ready(function(){
     imageUrl += '?' + $.param({'size': '300x180'});
     imageUrl += '&' + $.param({'location': addr});
 
-    var infoContent = document.createElement('div');
-    $(infoContent).append('<img src="' + imageUrl + '" alt="' + loc.name + '"/>');
+    var infoContent = null;
 
     var infoWindow = new google.maps.InfoWindow({
       maxWidth: 300
@@ -125,9 +124,22 @@ $(document).ready(function(){
         currentInfoWindow.close();
       }
 
+      // check if the infowindow content has already been fetched from external sources
+      if (infoContent !== null) {
+        infoWindow.open(map, marker);
+        currentInfoWindow = infoWindow;
+        return;
+      }
+
+      // Initially, we show a wait message
       infoWindow.setContent('<div>Please wait...</div>');
       infoWindow.open(map, marker);
       currentInfoWindow = infoWindow;
+
+      // we have to fetch location specific info from external sources
+      // we start by creating the parent div
+      infoContent = document.createElement('div');
+      $(infoContent).append('<img src="' + imageUrl + '" alt="' + loc.name + '"/>');
 
       var fourSquareUrl = 'https://api.foursquare.com/v2/venues/search';
       var latlngStr = loc.latlng.lat() + ',' + loc.latlng.lng();
