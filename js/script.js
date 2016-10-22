@@ -72,7 +72,7 @@ $(document).ready(function(){
   }
 
   var center = locations[0].latlng;
-  var markers = [];
+  var markers = {};
   google.maps.event.addDomListener(window, 'load', initialize);
 
   // this function is used to initialize the map with the right center and markers
