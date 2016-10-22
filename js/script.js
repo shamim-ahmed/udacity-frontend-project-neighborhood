@@ -71,19 +71,23 @@ $(document).ready(function(){
 
   var locationNames = [
     'Sydney Opera House',
-    'Government House',
     'Pancakes on The Rocks',
     'Mrs Macquarie\'s Chair',
     'The Spice Room',
-    'Frankie\'s Pizza'
+    'Frankie\'s Pizza',
+    'Sea Life Sydney Aquarium',
+    'St Mary\'s Cathedral',
+    'Queen Victoria Building'
   ];
   var locationCoords = [
     new google.maps.LatLng(-33.856783, 151.215290),
-    new google.maps.LatLng(-33.859621, 151.214850),
     new google.maps.LatLng(-33.857165, 151.208761),
     new google.maps.LatLng(-33.860096, 151.222564),
     new google.maps.LatLng(-33.861767, 151.212383),
-    new google.maps.LatLng(-33.865958, 151.209511)
+    new google.maps.LatLng(-33.865958, 151.209511),
+    new google.maps.LatLng(-33.869974, 151.202115),
+    new google.maps.LatLng(-33.871254, 151.213429),
+    new google.maps.LatLng(-33.871803, 151.206664)
   ];
 
   var locations = [];
@@ -104,7 +108,7 @@ $(document).ready(function(){
     var mapOptions = {
       center: center,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
-      zoom: 16,
+      zoom: 14,
       disableDefaultUI: true
     };
 
