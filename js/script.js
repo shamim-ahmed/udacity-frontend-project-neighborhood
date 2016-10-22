@@ -67,9 +67,22 @@ $(document).ready(function(){
   var map = null;
   var currentInfoWindow = null;
 
-  var locationNames = ['Sydney Opera House', 'Government House', 'Pancakes on The Rocks', 'Mrs Macquarie\'s Chair', 'The Spice Room', 'Frankie\'s Pizza'];
-  var locationCoords = [new google.maps.LatLng(-33.856783, 151.215290), new google.maps.LatLng(-33.859621, 151.214850), new google.maps.LatLng(-33.857165, 151.208761),
-            new google.maps.LatLng(-33.860096, 151.222564), new google.maps.LatLng(-33.861767, 151.212383), new google.maps.LatLng(-33.865958, 151.209511)];
+  var locationNames = [
+    'Sydney Opera House',
+    'Government House',
+    'Pancakes on The Rocks',
+    'Mrs Macquarie\'s Chair',
+    'The Spice Room',
+    'Frankie\'s Pizza'
+  ];
+  var locationCoords = [
+    new google.maps.LatLng(-33.856783, 151.215290),
+    new google.maps.LatLng(-33.859621, 151.214850),
+    new google.maps.LatLng(-33.857165, 151.208761),
+    new google.maps.LatLng(-33.860096, 151.222564),
+    new google.maps.LatLng(-33.861767, 151.212383),
+    new google.maps.LatLng(-33.865958, 151.209511)
+  ];
 
   var locations = [];
 
