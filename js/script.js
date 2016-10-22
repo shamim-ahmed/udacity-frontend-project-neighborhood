@@ -215,7 +215,7 @@ $(document).ready(function(){
       }
 
       var category = venue.categories[0].name;
-
+      $(infoContent).append('<div>Info from Foursquare</div>');
       $(infoContent).append('<div><span>Name: </span><span>' + venueName + '</span></div>');
       $(infoContent).append('<div><span>Address: </span><span>' + fullAddress + '</span></div>');
       $(infoContent).append('<div><span>Category: </span><span>' + category + '</span></div>');
