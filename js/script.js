@@ -209,8 +209,8 @@ $(document).ready(function(){
       infoWindow.setContent(infoContent);
     };
 
-    var genericErrorHandler = function(ex) {
-      console.log('An error occurred: ' + ex);
+    var genericErrorHandler = function(jqXHR, textStatus, errorThrown) {
+      console.log('An error occurred during Ajax request: ' + errorThrown);
       infoWindow.setContent(infoContent);
     };
 
