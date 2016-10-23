@@ -76,7 +76,8 @@ html, body {
 }
 
 .info-loaded {
-  min-height: 350px;
+  min-height: 300px;
+  margin: 5px 0;
 }
 
 .info-container h3 {
