@@ -208,7 +208,13 @@ $(document).ready(function() {
 
       loc.isSelected(true);
       currentLocation = loc;
+
+      // animate the marker
       marker.setIcon('images/purple-dot.png');
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function() {
+        marker.setAnimation(null);
+      }, 200);
 
       // check if the InfoWindow content has already been fetched from external sources
       if (infoContent !== null) {
