@@ -170,6 +170,9 @@ $(document).ready(function() {
     imageUrl += '&' + $.param({
       'location': addr
     });
+    imageUrl += '&' + $.param({
+      'key': 'AIzaSyCVntsEb5exmG2Iwot9nZlTkSNxSy7ia2k'
+    });
 
     var infoContent = null;
 
