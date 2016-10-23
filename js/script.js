@@ -289,14 +289,12 @@ $(document).ready(function() {
     var tipSearchResponseHandler = function(data) {
       var tip = data.response.tips.items[0];
       $(infoContent).append('<div class="info"><span class="key">Review: </span><span>' + tip.text + '</span></div>');
-      $(infoContent).addClass('info-loaded');
       infoWindow.setContent(infoContent);
     };
 
     // handle Ajax error in a generic manner
     var genericErrorHandler = function(jqXHR, textStatus, errorThrown) {
       console.log('An error occurred during Ajax request: ' + errorThrown);
-      $(infoContent).addClass('info-loaded');
       infoWindow.setContent(infoContent);
     };
 

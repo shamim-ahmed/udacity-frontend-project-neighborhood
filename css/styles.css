@@ -75,9 +75,8 @@ html, body {
   overflow: hidden;
 }
 
-.info-loaded {
-  min-height: 300px;
-  margin: 5px 0;
+.info-container {
+  margin: 6px 0;
 }
 
 .info-container h3 {
@@ -87,6 +86,10 @@ html, body {
 
 .info-container .info {
   margin-bottom: 3px;
+}
+
+.info-container .info:last-child {
+  margin-bottom: 0;
 }
 
 .info-container .info .key {
