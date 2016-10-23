@@ -44,7 +44,8 @@ var ViewModel = function(map, locations, markers, infoWindows) {
 
       if (name.indexOf(val) != -1) {
         loc.isIncluded(true);
-      } else {
+      }
+      else {
         loc.isIncluded(false);
       }
 
@@ -72,13 +73,14 @@ var ViewModel = function(map, locations, markers, infoWindows) {
   }
 };
 
-$(document).ready(function(){
+$(document).ready(function() {
   // sidebar show-hide functionality for devices with small screen
   $('#sidebar-control').click(function() {
     if ($(this).data('state') == 'show') {
       $('#sidebar').hide();
       $(this).data('state', 'hide');
-    } else {
+    }
+    else {
       $('#sidebar').show();
       $(this).data('state', 'show');
     }
@@ -162,8 +164,12 @@ $(document).ready(function(){
 
     var addr = loc.latlng.lat() + ',' + loc.latlng.lng();
     var imageUrl = 'http://maps.googleapis.com/maps/api/streetview';
-    imageUrl += '?' + $.param({'size': '250x150'});
-    imageUrl += '&' + $.param({'location': addr});
+    imageUrl += '?' + $.param({
+      'size': '250x150'
+    });
+    imageUrl += '&' + $.param({
+      'location': addr
+    });
 
     var infoContent = null;
 
