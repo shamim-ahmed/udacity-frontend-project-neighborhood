@@ -2,37 +2,36 @@
 
 <html lang="en">
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<meta charset="utf-8">
-	<title>Opera House Neighborhood</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<link href="css/styles.css" rel="stylesheet"/>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Opera House Neighborhood</title>
+  <link href="css/styles.css" rel="stylesheet" />
 </head>
 <body>
-	<div class="navbar">
-			<a href="#" id="sidebar-control" data-state="show">
-				<img src="images/burger.png" alt="sidebar show/hide"/>
-			</a>
-			<div class="navbar-label">Opera House Neighborhood</div>
-	</div>
+  <div class="navbar">
+    <a href="#" id="sidebar-control" data-state="show">
+      <img src="images/burger.png" alt="sidebar show/hide" />
+    </a>
+    <div class="navbar-label">Opera House Neighborhood</div>
+  </div>
 
-	<div id="map-canvas"></div>
-	<div id="sidebar">
-		<form action="#">
-			<input type="text" name="q" class="search-box" data-bind="value: searchInput, valueUpdate: 'afterkeydown'" placeholder="Search"/>
-		</form>
+  <div id="map-canvas">&nbsp;</div>
+  <div id="sidebar">
+    <form action="#">
+      <input type="text" name="q" class="search-box" data-bind="value: searchInput, valueUpdate: 'afterkeydown'" placeholder="Search" />
+    </form>
 
-		<ul data-bind="foreach: locations" class="search-item-list">
-			<li data-bind="visible: isIncluded, event: {click: $parent.locationSelected}, css: {'selected-item': isSelected()}" class="search-item">
-				<span data-bind="text: name"></span>
-			</li>
-		</ul>
-	</div>
+    <ul data-bind="foreach: locations" class="search-item-list">
+      <li data-bind="visible: isIncluded, event: {click: $parent.locationSelected}, css: {'selected-item': isSelected()}" class="search-item">
+        <span data-bind="text: name"></span>
+      </li>
+    </ul>
+  </div>
 
-	<!-- script references -->
-	<script src="js/jquery.min.js"></script>
-	<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADzR1HKF8UpCsP7y3eNf6gwRDUjFWtLhw&v=3"></script>
-	<script src="js/knockout-3.2.0.js"></script>
-	<script src="js/script.js"></script>
+  <!-- script references -->
+  <script src="js/jquery.min.js"></script>
+  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADzR1HKF8UpCsP7y3eNf6gwRDUjFWtLhw&v=3"></script>
+  <script src="js/knockout-3.2.0.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
