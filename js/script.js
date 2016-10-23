@@ -63,6 +63,9 @@ var ViewModel = function(map, locations, markers, infoWindows) {
       marker.setIcon('images/red-dot.png');
       var iw = infoWindows[loc.uniqueId];
       iw.close();
+
+      // this ensures that an excluded item does not remain selected in the list
+      loc.isSelected(false);
     }
 
     marker.setMap(val);
