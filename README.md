@@ -21,3 +21,5 @@ The solution to the Udacity Neighborhood project. We use Sydney Opera House as o
   5. Review.
 - The image is fetched from Google Street View API.
 - All the other info is fetched from FourSquare API.
+- For devices with small screens, a hamburger icon appears at the top left corner.
+- Clicking on the hamburger icon will show/hide the list containing the location names.
