@@ -163,7 +163,7 @@ $(document).ready(function() {
     });
 
     var addr = loc.latlng.lat() + ',' + loc.latlng.lng();
-    var imageUrl = 'https://maps.googleapis.com/maps/api/streetview';
+    var imageUrl = 'http://maps.googleapis.com/maps/api/streetview';
     imageUrl += '?' + $.param({
       'size': '250x150'
     });
