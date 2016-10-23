@@ -1,3 +1,4 @@
+// definition of the Location class, which acts as the model
 var Location = function(uniqueId, name, latlng) {
   this.uniqueId = uniqueId;
   this.name = name;
@@ -6,6 +7,7 @@ var Location = function(uniqueId, name, latlng) {
   this.isSelected = ko.observable(false);
 };
 
+// definition of the ViewModel
 var ViewModel = function(map, locations, markers, infoWindows) {
   var self = this;
 
@@ -32,6 +34,8 @@ var ViewModel = function(map, locations, markers, infoWindows) {
     google.maps.event.trigger(marker, 'click');
   };
 
+  // This function determines which locations should be included in the
+  // location list based on the current user input
   function filterLocations(val) {
     val = val.toLowerCase();
 
@@ -48,11 +52,13 @@ var ViewModel = function(map, locations, markers, infoWindows) {
     });
   }
 
+  // This function determines whether a marker will be visible or not depending on user input.
+  // It also closes any open InfoWindow for a location that is not included in the list.
   function updateMarker(loc) {
     var marker = self.markers[loc.uniqueId];
     var val = loc.isIncluded() ? self.map : null;
 
-    // check if location is excluded for current input and close the corresponding infowindow
+    // check if location is excluded for current input and close the corresponding InfoWindow
     if (val === null) {
       marker.setIcon('images/red-dot.png');
       var iw = infoWindows[loc.uniqueId];
@@ -64,6 +70,7 @@ var ViewModel = function(map, locations, markers, infoWindows) {
 };
 
 $(document).ready(function(){
+  // sidebar show-hide functionality for devices with small screen
   $('#sidebar-control').click(function() {
     if ($(this).data('state') == 'show') {
       $('#sidebar').hide();
@@ -74,6 +81,7 @@ $(document).ready(function(){
     }
   });
 
+  // variable declaration and initialization
   var map = null;
   var currentLocation = null;
 
@@ -109,6 +117,8 @@ $(document).ready(function(){
   var center = locations[0].latlng;
   var markers = {};
   var infoWindows = {};
+
+  // initialize the map after page loading
   google.maps.event.addDomListener(window, 'load', initialize);
 
   // this function is used to initialize the map with the right center and markers
@@ -138,6 +148,8 @@ $(document).ready(function(){
     createViewModel();
   }
 
+  // Create a marker and related InfoWindow for a given location
+  // The InfoWindow content is initialized when the marker is first clicked.
   function createMarker(loc) {
     var marker = new google.maps.Marker({
       position: loc.latlng,
@@ -159,6 +171,7 @@ $(document).ready(function(){
     infoWindow.setZIndex(10);
     infoWindows[loc.uniqueId] = infoWindow;
 
+    // handler for InfoWindow close event
     google.maps.event.addListener(infoWindow, 'closeclick', function() {
       if (currentLocation !== null) {
         currentLocation.isSelected(false);
@@ -167,7 +180,10 @@ $(document).ready(function(){
       marker.setIcon('images/red-dot.png');
     });
 
+    // handler for marker click event
     marker.addListener('click', function() {
+      // if a location is already selected, we ensure that it is un-selected.
+      // marker icon is changed and the corresponding InfoWindow gets closed.
       if (currentLocation !== null) {
         currentLocation.isSelected(false);
 
@@ -182,22 +198,23 @@ $(document).ready(function(){
       currentLocation = loc;
       marker.setIcon('images/purple-dot.png');
 
-      // check if the infowindow content has already been fetched from external sources
+      // check if the InfoWindow content has already been fetched from external sources
       if (infoContent !== null) {
         infoWindow.open(map, marker);
         return;
       }
 
+      // We have to fetch InfoWindow content via Ajax.
       // Initially, we show a wait message
       infoWindow.setContent('<div>Please wait...</div>');
       infoWindow.open(map, marker);
 
-      // we have to fetch location specific info from external sources
-      // we start by creating the parent div
+      // Create the parent div that will act as the container shown in InfoWindow
       infoContent = document.createElement('div');
       $(infoContent).addClass('info-container');
       $(infoContent).append('<img src="' + imageUrl + '" alt="' + loc.name + '"/>');
 
+      // initiate the search for venue
       var fourSquareUrl = 'https://api.foursquare.com/v2/venues/search';
       var latlngStr = loc.latlng.lat() + ',' + loc.latlng.lng();
       var params = {
@@ -213,6 +230,7 @@ $(document).ready(function(){
       $.getJSON(fourSquareUrl, params, venueSearchResponseHandler).fail(genericErrorHandler);
     });
 
+    // handle the response for venue search request
     var venueSearchResponseHandler = function(data) {
       var venue = data.response.venues[0];
       var venueId = venue.id;
@@ -234,11 +252,14 @@ $(document).ready(function(){
       }
 
       var category = venue.categories[0].name;
+
+      // add data to InfoWindow container
       $(infoContent).append('<h3>Info from Foursquare</h3>');
       $(infoContent).append('<div class="info"><span class="key">Name: </span><span>' + venueName + '</span></div>');
       $(infoContent).append('<div class="info"><span class="key">Address: </span><span>' + fullAddress + '</span></div>');
       $(infoContent).append('<div class="info"><span class="key">Category: </span><span>' + category + '</span></div>');
 
+      // initiate the search for reviews
       var venueTipsUrl = 'https://api.foursquare.com/v2/venues/' + venueId + '/tips';
       var params = {
         'client_id': '2XWQOVE4P4V5ZULBKS0LJ5LH3XSYVAFSPEU250QAFVV1RBSA',
@@ -252,12 +273,14 @@ $(document).ready(function(){
       $.getJSON(venueTipsUrl, params, tipSearchResponseHandler).fail(genericErrorHandler);
     };
 
+    // handle the response for review search request
     var tipSearchResponseHandler = function(data) {
       var tip = data.response.tips.items[0];
       $(infoContent).append('<div class="info"><span class="key">Review: </span><span>' + tip.text + '</span></div>');
       infoWindow.setContent(infoContent);
     };
 
+    // handle Ajax error in a generic manner
     var genericErrorHandler = function(jqXHR, textStatus, errorThrown) {
       console.log('An error occurred during Ajax request: ' + errorThrown);
       infoWindow.setContent(infoContent);
@@ -266,6 +289,7 @@ $(document).ready(function(){
     return marker;
   }
 
+  // create the ViewModel
   function createViewModel() {
     var viewModel = new ViewModel(map, locations, markers, infoWindows);
     ko.applyBindings(viewModel);
