@@ -75,8 +75,7 @@ $(document).ready(function(){
   });
 
   var map = null;
-  var currentMarker = null;
-  var currentInfoWindow = null;
+  var currentLocation = null;
 
   var locationNames = [
     'Sydney Opera House',
@@ -93,7 +92,7 @@ $(document).ready(function(){
     new google.maps.LatLng(-33.857165, 151.208761),
     new google.maps.LatLng(-33.860096, 151.222564),
     new google.maps.LatLng(-33.861767, 151.212383),
-    new google.maps.LatLng(-33.865958, 151.209511),
+    new google.maps.LatLng(-33.865896, 151.209513),
     new google.maps.LatLng(-33.869974, 151.202115),
     new google.maps.LatLng(-33.871254, 151.213429),
     new google.maps.LatLng(-33.871803, 151.206664)
@@ -161,32 +160,37 @@ $(document).ready(function(){
     infoWindows[loc.uniqueId] = infoWindow;
 
     google.maps.event.addListener(infoWindow, 'closeclick', function() {
+      if (currentLocation !== null) {
+        currentLocation.isSelected(false);
+      }
+
       marker.setIcon('images/red-dot.png');
     });
 
     marker.addListener('click', function() {
-      if (currentInfoWindow !== null) {
-        currentInfoWindow.close();
+      if (currentLocation !== null) {
+        currentLocation.isSelected(false);
+
+        var iw = infoWindows[currentLocation.uniqueId];
+        iw.close();
+
+        var mk = markers[currentLocation.uniqueId];
+        mk.setIcon('images/red-dot.png');
       }
 
-      if (currentMarker !== null) {
-        currentMarker.setIcon('images/red-dot.png');
-      }
-
+      loc.isSelected(true);
+      currentLocation = loc;
       marker.setIcon('images/purple-dot.png');
-      currentMarker = marker;
 
       // check if the infowindow content has already been fetched from external sources
       if (infoContent !== null) {
         infoWindow.open(map, marker);
-        currentInfoWindow = infoWindow;
         return;
       }
 
       // Initially, we show a wait message
       infoWindow.setContent('<div>Please wait...</div>');
       infoWindow.open(map, marker);
-      currentInfoWindow = infoWindow;
 
       // we have to fetch location specific info from external sources
       // we start by creating the parent div
