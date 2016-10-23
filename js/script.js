@@ -85,11 +85,10 @@ $(document).ready(function() {
       $(this).data('state', 'show');
     }
   });
+});
 
+function initialize() {
   // variable declaration and initialization
-  var map = null;
-  var currentLocation = null;
-
   var locationNames = [
     'Sydney Opera House',
     'Pancakes on The Rocks',
@@ -123,35 +122,32 @@ $(document).ready(function() {
   var markers = {};
   var infoWindows = {};
 
-  // initialize the map after page loading
-  google.maps.event.addDomListener(window, 'load', initialize);
+  var mapOptions = {
+    center: center,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    zoom: 14,
+    disableDefaultUI: true
+  };
 
-  // this function is used to initialize the map with the right center and markers
-  function initialize() {
-    var mapOptions = {
-      center: center,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      zoom: 14,
-      disableDefaultUI: true
-    };
+  var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+  var currentLocation = null;
 
-    map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-    var i, loc, marker;
+  var loc, marker;
 
-    for (i = 0; i < locations.length; i++) {
-      loc = locations[i];
+  for (i = 0; i < locations.length; i++) {
+    loc = locations[i];
 
-      marker = createMarker(loc);
-      markers[loc.uniqueId] = marker;
+    marker = createMarker(loc);
+    markers[loc.uniqueId] = marker;
 
-      if (loc.isIncluded()) {
-        marker.setMap(map);
-      }
+    if (loc.isIncluded()) {
+      marker.setMap(map);
     }
-
-    // at this point, we have all required data to create a ViewModel
-    createViewModel();
   }
+
+  // at this point, we have all required data to create a ViewModel
+  var viewModel = new ViewModel(map, locations, markers, infoWindows);
+  ko.applyBindings(viewModel);
 
   // Create a marker and related InfoWindow for a given location
   // The InfoWindow content is initialized when the marker is first clicked.
@@ -306,10 +302,8 @@ $(document).ready(function() {
 
     return marker;
   }
+}
 
-  // create the ViewModel
-  function createViewModel() {
-    var viewModel = new ViewModel(map, locations, markers, infoWindows);
-    ko.applyBindings(viewModel);
-  }
-});
+function googleMapError() {
+  alert("An error occurred while loading Google map");
+}
