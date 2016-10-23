@@ -300,7 +300,7 @@ $(document).ready(function() {
 
     // handle Ajax error in a generic manner
     var genericErrorHandler = function(jqXHR, textStatus, errorThrown) {
-      console.log('An error occurred during Ajax request: ' + errorThrown);
+      alert('An error occurred while loading location info: ' + errorThrown);
       infoWindow.setContent(infoContent);
     };
 
