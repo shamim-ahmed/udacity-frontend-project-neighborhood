@@ -31,7 +31,7 @@ body{
 .navbar .navbar-label {
   display: inline-block;
   margin-top: 5px;
-  margin-left: 3%;
+  margin-left: 8px;
   position: absolute;
 }
 
@@ -94,10 +94,6 @@ body{
 }
 
 @media screen and (max-width: 768px) {
-  .navbar .navbar-label {
-    margin-left: 10px;
-  }
-
   #sidebar .search-item-list {
     font-size: 0.75em;
   }

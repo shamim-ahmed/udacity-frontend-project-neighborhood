@@ -114,7 +114,7 @@ $(document).ready(function(){
     locations[i] = new Location(locId, locationNames[i], locationCoords[i]);
   }
 
-  var center = locations[0].latlng;
+  var center = locations[4].latlng;
   var markers = {};
   var infoWindows = {};
 
