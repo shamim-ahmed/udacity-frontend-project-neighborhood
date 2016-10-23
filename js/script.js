@@ -118,12 +118,11 @@ function initialize() {
     locations[i] = new Location(locId, locationNames[i], locationCoords[i]);
   }
 
-  var center = locations[0].latlng;
   var markers = {};
   var infoWindows = {};
 
   var mapOptions = {
-    center: center,
+    center: locations[0].latlng,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     zoom: 14,
     disableDefaultUI: true
@@ -132,18 +131,14 @@ function initialize() {
   var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
   var currentLocation = null;
 
-  var loc, marker;
-
-  for (i = 0; i < locations.length; i++) {
-    loc = locations[i];
-
-    marker = createMarker(loc);
-    markers[loc.uniqueId] = marker;
+  locations.forEach(function(loc){
+    var mk = createMarker(loc);
+    markers[loc.uniqueId] = mk;
 
     if (loc.isIncluded()) {
-      marker.setMap(map);
+      mk.setMap(map);
     }
-  }
+  });
 
   // at this point, we have all required data to create a ViewModel
   var viewModel = new ViewModel(map, locations, markers, infoWindows);
@@ -253,13 +248,13 @@ function initialize() {
       var fullAddress = '';
 
       if (venueLocation.formattedAddress) {
-        var i;
+        var j;
         var n = venueLocation.formattedAddress.length;
 
-        for (i = 0; i < n; i++) {
-          fullAddress += venueLocation.formattedAddress[i];
+        for (j = 0; j < n; j++) {
+          fullAddress += venueLocation.formattedAddress[j];
 
-          if (i < n - 1) {
+          if (j < n - 1) {
             fullAddress += ', ';
           }
         }
