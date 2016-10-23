@@ -131,7 +131,7 @@ function initialize() {
   var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
   var currentLocation = null;
 
-  locations.forEach(function(loc){
+  locations.forEach(function(loc) {
     var mk = createMarker(loc);
     markers[loc.uniqueId] = mk;
 
